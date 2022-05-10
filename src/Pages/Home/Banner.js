@@ -4,7 +4,7 @@ import chair from '../../assets/images/chair.png';
 
 const Banner = () => {
   return (
-    <div  class="hero min-h-screen px-12 bg-[url('https://res.cloudinary.com/dlg9tnvfx/image/upload/v1652168664/Doctors-portel/bg_kzruzx.png')]">
+    <div  class="hero min-h-screen  bg-[url('https://res.cloudinary.com/dlg9tnvfx/image/upload/v1652168664/Doctors-portel/bg_kzruzx.png')]">
       <div class="hero-content flex-col lg:flex-row-reverse">
         <img width="100%" src={chair} class="max-w-sm rounded-lg shadow-2xl" />
         <div className="pr-12">
