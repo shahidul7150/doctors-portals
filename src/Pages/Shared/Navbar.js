@@ -2,17 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    const menuItems = <>
-          <li><Link to="/" >Home</Link></li>
-          <li><Link to="/appointment" >Appointment</Link></li>
-          <li><Link to="/review" >Review</Link></li>
-          <li><Link to="/contact" >Contact</Link></li>
-          <li><Link to="/about" >About</Link></li>
-          <li><Link to="login" >Login</Link></li>
+  const menuItems = (
+    <>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/appointment">Appointment</Link>
+      </li>
+      <li>
+        <Link to="/review">Review</Link>
+      </li>
+      <li>
+        <Link to="/contact">Contact</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="login">Login</Link>
+      </li>
     </>
+  );
   return (
-    <div class="navbar bg-base-100 justify-around">
-      <div class="navbar-start">
+    <div class="navbar justify-around">
+      <div class="navbar">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
             <svg
@@ -30,19 +44,21 @@ const Navbar = () => {
               />
             </svg>
           </label>
+          {/* Mobile view */}
           <ul
             tabindex="0"
             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
           >
-             {menuItems}
+            {menuItems}
           </ul>
         </div>
-        <Link to="/" class="btn btn-ghost normal-case text-xl">Doctors Portal</Link>
+        <Link to="/" class="btn btn-ghost normal-case text-xl">
+          Doctors Portal
+        </Link>
       </div>
       <div class="navbar-center  hidden lg:flex">
-        <ul class="menu menu-horizontal p-0">
-         {menuItems}
-        </ul>
+        {/* desktop view */}
+        <ul class="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
     </div>
   );
