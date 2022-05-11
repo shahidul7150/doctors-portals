@@ -25,13 +25,13 @@ const Navbar = () => {
     </>
   );
   return (
-    <div class="navbar justify-around">
-      <div class="navbar">
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost lg:hidden">
+    <div className="navbar justify-around">
+      <div className="navbar">
+        <div className="dropdown">
+          <label tabindex="0" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -47,18 +47,18 @@ const Navbar = () => {
           {/* Mobile view */}
           <ul
             tabindex="0"
-            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
           >
             {menuItems}
           </ul>
         </div>
-        <Link to="/" class="btn btn-ghost normal-case text-xl">
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
           Doctors Portal
         </Link>
       </div>
-      <div class="navbar-center  hidden lg:flex">
+      <div className="navbar-center  hidden lg:flex">
         {/* desktop view */}
-        <ul class="menu menu-horizontal p-0">{menuItems}</ul>
+        <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
     </div>
   );
