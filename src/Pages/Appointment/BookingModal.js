@@ -12,16 +12,16 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
   };
   return (
     <div>
-      <input type="checkbox" id="booking-modal" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
+      <input type="checkbox" id="booking-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
           <label
             for="booking-modal"
-            class="btn btn-sm btn-circle absolute bg-secondary border-0 right-2 top-2"
+            className="btn btn-sm btn-circle absolute bg-secondary border-0 right-2 top-2"
           >
             ✕
           </label>
-          <h3 class="font-bold text-lg text-secondary text-center">
+          <h3 className="font-bold text-lg text-secondary text-center">
             Booking for : {name}
           </h3>
 
@@ -31,9 +31,9 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
               disabled
               type="text"
               value={format(date, 'PP')}
-              class="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs"
             />
-            <select name="slot" class="select select-bordered w-full max-w-xs">
+            <select name="slot" className="select select-bordered w-full max-w-xs">
               <option disabled selected>
                 Select Available Slot
               </option>
@@ -45,24 +45,24 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
               type="text"
               name="name"
               placeholder="Your Name"
-              class="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs"
             />
             <input
               type="text"
               name="email"
               placeholder="Email Address"
-              class="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs"
             />
             <input
               type="text"
               name="phone"
               placeholder="Phone Number"
-              class="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs"
             />
             <input
               type="submit"
               value="Submit"
-              class="btn btn-secondary font-bold text-white w-full max-w-xs"
+              className="btn btn-secondary font-bold text-white w-full max-w-xs"
             />
           </form>
         </div>
