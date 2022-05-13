@@ -1,7 +1,10 @@
 import { format } from 'date-fns';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
-const BookingModal = ({ date, treatment,setTreatment }) => {
+const BookingModal = ({ date, treatment, setTreatment }) => {
+  const [user, loading, error] = useAuthState(auth);
   const {_id, name, slots } = treatment;
 
   const handleBooking = (event) => {
@@ -16,7 +19,7 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <label
-            for="booking-modal"
+            htmlFor="booking-modal"
             className="btn btn-sm btn-circle absolute bg-secondary border-0 right-2 top-2"
           >
             ✕
@@ -34,23 +37,26 @@ const BookingModal = ({ date, treatment,setTreatment }) => {
               className="input input-bordered w-full max-w-xs"
             />
             <select name="slot" className="select select-bordered w-full max-w-xs">
-              <option disabled selected>
-                Select Available Slot
-              </option>
-              {slots.map((slot) => (
-                <option  value={slot}>{slot}</option>
+           
+              {slots.map((slot,index) => (
+                <option
+                  key={index}
+                  value={slot}
+                >{slot}</option>
               ))}
             </select>
             <input
               type="text"
               name="name"
-              placeholder="Your Name"
-              className="input input-bordered w-full max-w-xs"
+              disabled
+              value={user?.displayName || ''}
+              className=" input input-bordered w-full max-w-xs"
             />
             <input
               type="text"
               name="email"
-              placeholder="Email Address"
+              disabled
+              value={user?.email || ''}
               className="input input-bordered w-full max-w-xs"
             />
             <input

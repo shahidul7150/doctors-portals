@@ -1,93 +1,90 @@
 import React from 'react';
 import auth from '../../firebase.init';
 import {
-    useCreateUserWithEmailAndPassword,
+  useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-
-    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
 
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const navigate = useNavigate();
   let signInError;
 
-  if (loading || gLoading) {
+  if (loading || gLoading || updating) {
     return <Loading></Loading>;
   }
 
-  if (error || gError) {
+  if (error || gError || updateError) {
     signInError = (
       <small className="text-red-500">
-        {error?.message || gError?.message}
+        {error?.message || gError?.message || updateError?.message}
       </small>
     );
   }
-  if (user||gUser) {
+  if (user || gUser) {
     console.log(user._tokenResponse.email);
     console.dir(user);
   }
 
-  const onSubmit = (data) => {
-    console.log(data);
-    createUserWithEmailAndPassword(data.email, data.password);
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
+      await updateProfile({ displayName: data.name });
+      console.log("update done");
+      navigate('/appointment')
   };
 
-    return (
-        <div>
+  return (
+    <div>
       <div className="card lg:max-w-lg bg-base-100 shadow-xl mx-auto ">
         <div className="card-body  ">
           <h2 className="text-2xl font-bold text-center">Please Sign Up</h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        
-                    <div class="form-control w-full ">
-              <label class="label">
-                <span class="label-text">Name</span>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-control w-full ">
+              <label className="label">
+                <span className="label-text">Name</span>
               </label>
               <input
                 type="text"
                 placeholder="Your Name"
-                class=" input input-bordered w-full "
+                className=" input input-bordered w-full "
                 {...register('name', {
                   required: {
                     value: true,
                     message: 'Name is Required',
-                  }
+                  },
                 })}
               />
-              <label class="label">
+              <label className="label">
                 {errors.name?.type === 'required' && (
-                  <span class="label-text-alt text-red-500">
+                  <span className="label-text-alt text-red-500">
                     {errors.name.message}
                   </span>
                 )}
-                
               </label>
             </div>
 
-            <div class="form-control w-full ">
-              <label class="label">
-                <span class="label-text">Email</span>
+            <div className="form-control w-full ">
+              <label className="label">
+                <span className="label-text">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="Your Email"
-                class=" input input-bordered w-full "
+                className=" input input-bordered w-full "
                 {...register('email', {
                   required: {
                     value: true,
@@ -99,29 +96,28 @@ const Signup = () => {
                   },
                 })}
               />
-              <label class="label">
+              <label className="label">
                 {errors.email?.type === 'required' && (
-                  <span class="label-text-alt text-red-500">
+                  <span className="label-text-alt text-red-500">
                     {errors.email.message}
                   </span>
                 )}
                 {errors.email?.type === 'pattern' && (
-                  <span class="label-text-alt text-red-500">
+                  <span className="label-text-alt text-red-500">
                     {errors.email.message}
                   </span>
                 )}
               </label>
             </div>
-           
 
-            <div class="form-control w-full ">
-              <label class="label">
-                <span class="label-text">Password</span>
+            <div className="form-control w-full ">
+              <label className="label">
+                <span className="label-text">Password</span>
               </label>
               <input
                 type="password"
                 placeholder="Password"
-                class="lg:min-w-lg input input-bordered w-full "
+                className="lg:min-w-lg input input-bordered w-full "
                 {...register('password', {
                   required: {
                     value: true,
@@ -133,14 +129,14 @@ const Signup = () => {
                   },
                 })}
               />
-              <label class="label">
+              <label className="label">
                 {errors.password?.type === 'required' && (
-                  <span class="label-text-alt text-red-500">
+                  <span className="label-text-alt text-red-500">
                     {errors.password.message}
                   </span>
                 )}
                 {errors.password?.type === 'minLength' && (
-                  <span class="label-text-alt text-red-500">
+                  <span className="label-text-alt text-red-500">
                     {errors.password.message}
                   </span>
                 )}
@@ -153,8 +149,16 @@ const Signup = () => {
               type="submit"
               value="Sign Up"
             />
-                  </form>
-                  <p> <small>Already have an account ? <Link className='text-secondary' to="/login">Please login</Link> </small></p>
+          </form>
+          <p>
+            {' '}
+            <small>
+              Already have an account ?{' '}
+              <Link className="text-secondary" to="/login">
+                Please login
+              </Link>{' '}
+            </small>
+          </p>
           <div className="divider">OR</div>
           <button
             onClick={() => signInWithGoogle()}
@@ -165,7 +169,7 @@ const Signup = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Signup;
