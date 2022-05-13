@@ -1,22 +1,28 @@
 import React from 'react';
 import auth from '../../firebase.init';
 import {
-  useSignInWithEmailAndPassword,
+    useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
 } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
-  const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+const Signup = () => {
+
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
 
   let signInError;
 
@@ -38,16 +44,42 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    signInWithEmailAndPassword(data.email, data.password);
+    createUserWithEmailAndPassword(data.email, data.password);
   };
 
-  return (
-    <div>
+    return (
+        <div>
       <div className="card lg:max-w-lg bg-base-100 shadow-xl mx-auto ">
         <div className="card-body  ">
-          <h2 className="text-2xl font-bold text-center">Please Login</h2>
+          <h2 className="text-2xl font-bold text-center">Please Sign Up</h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        
+                    <div class="form-control w-full ">
+              <label class="label">
+                <span class="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Your Name"
+                class=" input input-bordered w-full "
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Name is Required',
+                  }
+                })}
+              />
+              <label class="label">
+                {errors.name?.type === 'required' && (
+                  <span class="label-text-alt text-red-500">
+                    {errors.name.message}
+                  </span>
+                )}
+                
+              </label>
+            </div>
+
             <div class="form-control w-full ">
               <label class="label">
                 <span class="label-text">Email</span>
@@ -80,6 +112,7 @@ const Login = () => {
                 )}
               </label>
             </div>
+           
 
             <div class="form-control w-full ">
               <label class="label">
@@ -118,10 +151,10 @@ const Login = () => {
             <input
               className="btn btn-secondary w-full"
               type="submit"
-              value="Login"
+              value="Sign Up"
             />
                   </form>
-                  <p> <small>New to Doctors Portal ? <Link className='text-secondary' to="/signup">Create New Account</Link> </small></p>
+                  <p> <small>Already have an account ? <Link className='text-secondary' to="/login">Please login</Link> </small></p>
           <div className="divider">OR</div>
           <button
             onClick={() => signInWithGoogle()}
@@ -132,7 +165,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default Login;
+export default Signup;
