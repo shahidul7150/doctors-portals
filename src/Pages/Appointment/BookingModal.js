@@ -96,6 +96,7 @@ const formattedDate=format(date,'PP')
             <input
               type="text"
               name="phone"
+              required
               placeholder="Phone Number"
               className="input input-bordered w-full max-w-xs"
             />

@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const Navbar = () => {
-
   const [user, loading, error] = useAuthState(auth);
 
   const logOut = () => {
-    signOut(auth)
-  }
+    signOut(auth);
+  };
   const menuItems = (
     <>
       <li>
@@ -28,18 +27,24 @@ const Navbar = () => {
       <li>
         <Link to="/about">About</Link>
       </li>
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       <li>
-        {user ?
-          <button onClick={logOut} className="btn btn-ghost font-normal ">Sign Out</button>
-          
-          :
-          <Link  to="login">Login</Link>
-        }
+        {user ? (
+          <button onClick={logOut} className="btn btn-ghost font-normal ">
+            Sign Out
+          </button>
+        ) : (
+          <Link to="login">Login</Link>
+        )}
       </li>
     </>
   );
   return (
-    <div className="navbar justify-around ">
+    <div className="navbar justify-around top-0 sticky bg-white z-50  ">
       <div className="navbar">
         <div className="dropdown">
           <label tabIndex="0" className="btn btn-ghost lg:hidden">
@@ -70,9 +75,26 @@ const Navbar = () => {
           Doctors Portal
         </Link>
       </div>
-      <div className="navbar-center  hidden lg:flex">
+      <div className="navbar-center  hidden lg:flex ">
         {/* desktop view */}
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
+      </div>
+      <div className="navbar-end">
+        <label for="dashboard-sidebar" class="btn btn-ghost drawer-button lg:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="inline-block w-5 h-5 stroke-current"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </label>
       </div>
     </div>
   );
