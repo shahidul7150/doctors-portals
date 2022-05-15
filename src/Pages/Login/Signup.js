@@ -21,7 +21,9 @@ const Signup = () => {
     useCreateUserWithEmailAndPassword(auth);
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-    const [token]=useToken(user || gUser)
+
+    const [token] = useToken(user || gUser)
+    
     const navigate = useNavigate();
   let signInError;
 
