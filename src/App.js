@@ -14,11 +14,12 @@ import MyAppointment from './Pages/Dashboard/MyAppointment';
 import MyReview from './Pages/Dashboard/MyReview';
 import MyHistory from './Pages/Dashboard/MyHistory';
 import Users from './Pages/Dashboard/Users';
+import RequireAdmin from './Pages/Login/RequireAdmin';
 
 function App() {
   return (
     <div className="max-w-7xl mx-auto px-12 ">
-      <Navbar ></Navbar>
+      <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
@@ -38,10 +39,17 @@ function App() {
             </RequireAuth>
           }
         >
-          <Route index element={<MyAppointment/>}></Route>
-          <Route path='review' element={<MyReview/>}></Route>
-          <Route path='history' element={<MyHistory/>}></Route>
-          <Route path='users' element={<Users/>}></Route>
+          <Route index element={<MyAppointment />}></Route>
+          <Route path="review" element={<MyReview />}></Route>
+          <Route path="history" element={<MyHistory />}></Route>
+          <Route
+            path="users"
+            element={
+              <RequireAdmin>
+                <Users />
+              </RequireAdmin>
+            }
+          ></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
