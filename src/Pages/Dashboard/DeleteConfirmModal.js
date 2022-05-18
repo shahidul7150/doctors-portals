@@ -31,8 +31,7 @@ const DeleteConfirmModal = ({ deletingDoctor,refetch, setDeletingDoctor }) => {
             Are you sure you want to delete {name}!
           </h3>
           <p class="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
+            Once delete never seen without again add a doctor!!
           </p>
           <div class="modal-action">
             <button
