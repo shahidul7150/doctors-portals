@@ -23,7 +23,8 @@ const formattedDate=format(date,'PP')
       patientName: user.displayName,
       phone: event.target.phone.value
     }
-
+//https://polar-spire-82017.herokuapp.com/ 
+    // http://localhost:5000/
     fetch('https://polar-spire-82017.herokuapp.com/booking', {
       method: 'POST',
       headers: {
