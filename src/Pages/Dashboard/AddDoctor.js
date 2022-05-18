@@ -12,7 +12,7 @@ const AddDoctor = () => {
     reset,
   } = useForm();
   const { data: services, isLoading } = useQuery('services', () =>
-    fetch('http://localhost:5000/service').then((res) => res.json())
+    fetch('https://polar-spire-82017.herokuapp.com/service').then((res) => res.json())
   );
 
   const imageStorageKey = 'd46803d80a057c0ce0603c3a2117c9b1';
@@ -38,7 +38,7 @@ const AddDoctor = () => {
             img: img,
           };
           // send to database
-          fetch('http://localhost:5000/doctor', {
+          fetch('https://polar-spire-82017.herokuapp.com/doctor', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',

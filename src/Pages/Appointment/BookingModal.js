@@ -24,7 +24,7 @@ const formattedDate=format(date,'PP')
       phone: event.target.phone.value
     }
 
-    fetch('http://localhost:5000/booking', {
+    fetch('https://polar-spire-82017.herokuapp.com/booking', {
       method: 'POST',
       headers: {
         'content-type':'application/json'
