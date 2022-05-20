@@ -6,7 +6,7 @@ import {  toast } from 'react-toastify';
 
 const BookingModal = ({ date, treatment, setTreatment,refetch }) => {
   const [user, loading, error] = useAuthState(auth);
-  const {_id, name, slots } = treatment;
+  const {_id, name, slots,price } = treatment;
 const formattedDate=format(date,'PP')
   const handleBooking = (event) => {
     event.preventDefault();
@@ -19,13 +19,14 @@ const formattedDate=format(date,'PP')
       treatment: name,
       date: formattedDate,
       slot,
+      price,
       patient: user.email,
       patientName: user.displayName,
       phone: event.target.phone.value
     }
 //https://polar-spire-82017.herokuapp.com/ 
     // http://localhost:5000/
-    fetch('https://polar-spire-82017.herokuapp.com/booking', {
+    fetch('http://localhost:5000/booking', {
       method: 'POST',
       headers: {
         'content-type':'application/json'
